@@ -1,0 +1,73 @@
+<html>
+<head>
+  <link rel="stylesheet" href="jquery-ui/jquery-ui.min.css"/>
+  <style>
+  <!--custome style here-->
+  </style>
+</head>
+<body>
+  <!--body content here--->
+  <div>
+  <button>Button with icon only</button>
+  <button>Button with icon on the left</button>
+  <button>Button with two icons</button>
+  <button>Button with two icons and no text</button>
+  <button>A button element</button>
+
+<input type="submit" value="A submit button">
+
+<a href="#">An anchor</a>
+
+<input type="checkbox" id="check"><label for="check">Toggle</label>
+
+<div id="format">
+  <input type="checkbox" id="check1"><label for="check1">B</label>
+  <input type="checkbox" id="check2"><label for="check2">I</label>
+  <input type="checkbox" id="check3"><label for="check3">U</label>
+</div>
+<div>
+
+
+  <script src="jquery-ui/external/jquery/jquery.js"></script>
+  <script src="jquery-ui/jquery-ui.min.js"></script>
+  <script>
+  <!--scripts here-->
+  $(function() {
+  $( "input[type=submit], a, button" )
+    .button()
+    .click(function( event ) {
+      event.preventDefault();
+    });
+});
+
+$(function() {
+  $( "#check" ).button();
+  $( "#format" ).buttonset();
+});
+
+$(function() {
+  $("button:first").button({
+    icons: {
+      primary: "ui-icon-locked"
+    },
+    text: false
+  }).next().button({
+    icons: {
+      primary: "ui-icon-locked"
+    }
+  }).next().button({
+    icons: {
+      primary: "ui-icon-gear",
+      secondary: "ui-icon-triangle-1-s"
+    }
+  }).next().button({
+    icons: {
+      primary: "ui-icon-gear",
+      secondary: "ui-icon-triangle-1-s"
+    },
+    text: false
+  });
+});
+  </script>
+</body>
+</html>

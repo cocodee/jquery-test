@@ -1,0 +1,120 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="jquery-ui/jquery-ui.min.css"/>
+  <style>
+  /*custom style*/
+  .photo {
+  width: 400px;
+  text-align: center;
+}
+.photo .ui-widget-header {
+  margin: 1em 0;
+}
+.map {
+  width: 350px;
+  height: 350px;
+}
+.ui-tooltip {
+  max-width: 350px;
+}
+.photo a img {
+  width:400px;
+  height:300px
+}
+label {
+  display: inline-block; width: 5em;
+}
+fieldset div {
+  margin-bottom: 2em;
+}
+fieldset .help {
+  display: inline-block;
+}
+.ui-tooltip {
+  width: 210px;
+}
+  </style>
+</head>
+<body>
+  <!--body content here--->
+  <div class="ui-widget photo">
+  <div class="ui-widget-header ui-corner-all">
+    <h2>St. Stephen's Cathedral</h2>
+    <h3><a href="http://maps.google.com/maps?q=vienna,+austria&amp;z=11" data-geo="">Beijing, China</a></h3>
+  </div>
+  <a href="http://en.wikipedia.org/wiki/File:Wien_Stefansdom_DSC02656.JPG">
+    <img src="images/1.jpg" alt="St. Stephen&apos;s Cathedral" class="ui-corner-all">
+  </a>
+</div>
+
+<div class="ui-widget photo">
+  <div class="ui-widget-header ui-corner-all">
+    <h2>Tower Bridge</h2>
+    <h3><a href="http://maps.google.com/maps?q=london,+england&amp;z=11" data-geo="">London, England</a></h3>
+  </div>
+  <a href="http://en.wikipedia.org/wiki/File:Tower_bridge_London_Twilight_-_November_2006.jpg">
+    <img src="images/2.jpg" alt="Tower Bridge" class="ui-corner-all">
+  </a>
+</div>
+
+<p>All images are part of <a href="http://commons.wikimedia.org/wiki/Main_Page">Wikimedia Commons</a>
+and are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en" title="Creative Commons Attribution-ShareAlike 3.0">CC BY-SA 3.0</a> by the copyright holder.</p>
+<form>
+  <fieldset>
+    <div>
+      <label for="firstname">Firstname</label>
+      <input id="firstname" name="firstname" title="Please provide your firstname.">
+    </div>
+    <div>
+      <label for="lastname">Lastname</label>
+      <input id="lastname" name="lastname" title="Please provide also your lastname.">
+    </div>
+    <div>
+      <label for="address">Address</label>
+      <input id="address" name="address" title="Your home or work address.">
+    </div>
+  </fieldset>
+</form>
+  <script src="jquery-ui/external/jquery/jquery.js"></script>
+  <script src="jquery-ui/jquery-ui.min.js"></script>
+  <script>
+  <!--scripts here-->
+  $(document).ready(function(){
+    $( document ).tooltip({
+      items: "img, [data-geo], [title]",
+      content: function() {
+        var element = $( this );
+        if ( element.is( "[data-geo]" ) ) {
+          var text = element.text();
+          return "<img class='map' alt='" + text +
+            "' src='http://maps.google.com/maps/api/staticmap?" +
+            "zoom=11&size=350x350&maptype=terrain&sensor=false&center=" +
+            text + "'>";
+        }
+        if ( element.is( "[title]" ) ) {
+          return element.attr( "title" );
+        }
+        if ( element.is( "img" ) ) {
+          return element.attr( "alt" );
+        }
+      },
+      collision: "flipfit"
+    });
+    var tooltips = $( "input[title]" ).tooltip({
+  position: {
+    my: "left top",
+    at: "right+5 top-5"
+  }
+});
+$( "<button>" )
+  .text( "Show help" )
+  .button()
+  .click(function() {
+    tooltips.tooltip( "open" );
+  })
+  .insertAfter( "form" );
+  })
+  </script>
+</body>
+</html>

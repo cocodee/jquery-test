@@ -1,0 +1,101 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../jquery-ui/jquery-ui.min.css"/>
+  <style>
+  /*custom style*/
+  .toggler { width: 500px; height: 200px; display:block}
+#button { padding: .5em 1em; text-decoration: none;position:relative;display:block}
+#effect1 { width: 240px; height: 135px; padding: 0.4em; position: relative; }
+#effect1 h3 { margin: 0; padding: 0.4em; text-align: center; }
+#effect2 { width: 240px; height: 135px; padding: 0.4em; position: relative; }
+#effect2 h3 { margin: 0; padding: 0.4em; text-align: center; }
+  </style>
+</head>
+<body>
+  <!--body content here--->
+  <div class="toggler">
+  <div id="effect1" class="ui-widget-content ui-corner-all">
+    <h3 class="ui-widget-header ui-corner-all">Hide</h3>
+    <p>
+      Etiam libero neque, luctus a, eleifend nec, semper at, lorem. Sed pede. Nulla lorem metus, adipiscing ut, luctus sed, hendrerit vitae, mi.
+    </p>
+      </div>
+
+</div>
+<div class="toggler">
+  <div id="effect2" class="ui-widget-content ui-corner-all">
+<h3 class="ui-widget-header ui-corner-all">Show</h3>
+<p>
+  Etiam libero neque, luctus a, eleifend nec, semper at, lorem. Sed pede. Nulla lorem metus, adipiscing ut, luctus sed, hendrerit vitae, mi.
+</p>
+</div>
+
+</div>
+
+<select name="effects" id="effectTypes">
+  <option value="blind">Blind</option>
+  <option value="bounce">Bounce</option>
+  <option value="clip">Clip</option>
+  <option value="drop">Drop</option>
+  <option value="explode">Explode</option>
+  <option value="fold">Fold</option>
+  <option value="highlight">Highlight</option>
+  <option value="puff">Puff</option>
+  <option value="pulsate">Pulsate</option>
+  <option value="scale">Scale</option>
+  <option value="shake">Shake</option>
+  <option value="size">Size</option>
+  <option value="slide">Slide</option>
+</select>
+
+<button id="button" class="ui-state-default ui-corner-all">Run Effect</button>
+  <script src="../jquery-ui/external/jquery/jquery.js"></script>
+  <script src="../jquery-ui/jquery-ui.min.js"></script>
+  <script>
+  <!--scripts here-->
+  $(function() {
+  // run the currently selected effect
+  function runEffect() {
+    // get effect type from
+    var selectedEffect = $( "#effectTypes" ).val();
+
+    // most effect types need no options passed by default
+    var options1 = {queue:false};
+    var options2 = {queue:false};
+    // some effects have required parameters
+    if ( selectedEffect === "scale" ) {
+          options1 = { percent: 0 ,queue:false};
+          options2 = {percent:100,queue:false}
+    } else if ( selectedEffect === "size" ) {
+          options1 = { to: { width: 200, height: 60 } ,queue:false};
+          options2 = { to: { width: 280, height: 185 },queue:false };
+    }
+
+    // run the effect
+    $( "#effect1" ).hide( selectedEffect, options1, 1000, callback1);
+$( "#effect2" ).show( selectedEffect, options2, 1000, callback2 );
+  };
+
+  // callback function to bring a hidden box back
+  function callback1() {
+    setTimeout(function() {
+     $( "#effect1" ).removeAttr( "style" ).hide().fadeIn();
+    }, 1000 );
+  };
+  function callback2(){
+      setTimeout(function() {
+    $( "#effect2" ).removeAttr( "style" ).fadeOut();
+}, 1000 );
+  };
+  $( "#button" ).click(function() {
+    runEffect();
+  });
+
+  $( "#effect2" ).hide();
+  // set effect from select menu value
+
+});
+  </script>
+</body>
+</html>
